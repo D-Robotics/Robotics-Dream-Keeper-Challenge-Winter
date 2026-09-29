@@ -57,7 +57,7 @@ These are references, not Winter submissions. Winter participants must follow th
 
 Complete all onboarding steps to unlock Stage 1 and program support:
 
-1. **Submit the application form:** https://docs.google.com/forms/d/e/1FAIpQLSfuGT52LJ6RNDt2Abgb-7JMta5jRFOFBrk_4JrWJK3iXJwx9w/viewform?usp=publish-editor
+1. **Submit the application form:** https://forms.gle/ojG5pRmWXMsM27Vb9
 2. **Join the official Discord challenge channel:** https://discord.gg/ydVxBpz3vP
 3. **Post a short self-introduction** in your personal Discord forum thread.
 4. **Install and activate RDK Studio:** https://developer.d-robotics.cc/en/rdkstudio
