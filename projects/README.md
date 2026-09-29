@@ -2,6 +2,8 @@
 
 This directory collects one Markdown file per participant project submitted through Pull Requests. Participant source code stays in participant-owned repositories.
 
+For examples of completed profiles, browse the [2026 Summer project wall](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/SHOWCASE.md). Previous-season profiles are references only and are not part of the Winter cohort.
+
 ## Filename Rule
 
 ```text

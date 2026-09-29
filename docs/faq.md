@@ -14,6 +14,10 @@ They will be added to [README.md](../README.md) after organizer confirmation. Do
 
 Yes. You may prepare later-stage work early, but titles and rewards require the evidence and submission steps for each stage.
 
+### Can I view projects from the previous season?
+
+Yes. Browse the official [2026 Summer project wall](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/SHOWCASE.md) for completed project profiles and presentation examples. Follow the Winter rules and dates when preparing your own submission.
+
 ## Repository and Access
 
 ### Do I need both a personal repository and a fork of this repository?

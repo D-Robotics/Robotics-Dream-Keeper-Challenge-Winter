@@ -63,3 +63,13 @@ Final submissions close **December 15, 2026**. Keep every link accessible throug
 
 - [RDK course demos](https://github.com/D-Robotics/rdk-course-demos)
 - [RDK Model Zoo](https://github.com/D-Robotics/rdk_model_zoo)
+
+## Previous Season Reference
+
+- [2026 Summer Stage 3 requirements](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/stages/stage3-launch.md)
+- [Tri-Cam NavBot](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/projects/MuhirwaRichard-Project-TriCamNavBot.md)
+- [BETL-001](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/projects/IsaacRF-Project-BETL-001.md)
+- [Korosuke](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/projects/KazukiMurata-Project-Korosuke.md)
+- [2026 Summer project wall](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/SHOWCASE.md)
+
+The examples show different approaches to integration and presentation. Winter judging follows the requirements and award rules in this repository.

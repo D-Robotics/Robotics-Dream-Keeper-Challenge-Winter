@@ -14,7 +14,7 @@ Registration opens **September 30, 2026** · Final submissions close **December 
 </div>
 
 > [!IMPORTANT]
-> This repository is a pre-launch draft. Registration, Discord, webinar, and livestream links will be added after organizer confirmation. The stage calendar below follows the detailed phase table in the Winter planning brief.
+> Registration, Discord, webinar, and livestream links will be added here as they are announced. The stage calendar below is the participant-facing Winter schedule.
 
 ---
 
@@ -39,7 +39,21 @@ The Winter season keeps the Summer challenge structure, progression, judging fra
 | **Judging** | **Dec 16–31, 2026** | Review eligible submissions and feature candidate projects. | [Timeline](./TIMELINE.md) |
 | **Show & Tell / Awards** | **Jan 7, 2027** | Announce winners and celebrate the Winter cohort. | [Timeline](./TIMELINE.md) |
 
-See the detailed communications and operations calendar in **[TIMELINE.md](./TIMELINE.md)**.
+See the full participant schedule in **[TIMELINE.md](./TIMELINE.md)**.
+
+---
+
+## Previous Season Inspiration
+
+New participants can use the **2026 Summer Challenge** as a reference for submission quality, project scope, and the three-stage progression:
+
+- [2026 Summer Challenge repository](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge)
+- [2026 Summer project wall](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/SHOWCASE.md)
+- [Summer Stage 1 — Ignite](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/stages/stage1-ignite.md)
+- [Summer Stage 2 — Build](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/stages/stage2-build.md)
+- [Summer Stage 3 — Launch](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/stages/stage3-launch.md)
+
+These are references, not Winter submissions. Winter participants must follow the dates and requirements in this repository.
 
 ---
 
@@ -89,6 +103,7 @@ Eligibility, judging dimensions, rewards, and distribution timing are documented
 - [RDK Studio](https://developer.d-robotics.cc/en/rdkstudio)
 - [D-Robotics documentation](https://developer.d-robotics.cc/en/documentation)
 - [D-Robotics GitHub organization](https://github.com/D-Robotics)
+- [2026 Summer Challenge archive](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge)
 
 ---
 

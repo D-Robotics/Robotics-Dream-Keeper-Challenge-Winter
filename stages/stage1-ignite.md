@@ -64,3 +64,10 @@ Do not publish Wi-Fi passwords, tokens, private keys, or device serials.
 - Stage 2 access.
 - Official recognition.
 - One participant T-shirt, subject to final shipping terms.
+
+## Previous Season Reference
+
+- [2026 Summer Stage 1 requirements](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/stages/stage1-ignite.md)
+- [2026 Summer project wall](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/SHOWCASE.md) — useful examples of bring-up evidence, first AI tasks, and project documentation
+
+Use these for inspiration only; submit against the Winter requirements above.

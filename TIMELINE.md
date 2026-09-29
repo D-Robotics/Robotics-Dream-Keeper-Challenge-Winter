@@ -1,12 +1,11 @@
 # 2026 Winter Timeline
 
-This is the working public calendar for the **Robotics Dream Keeper Challenge — 2026 Winter**. Dates follow the detailed stage and communications tables in the Winter planning brief. Any item marked **TBC** must be confirmed before the repository is published.
+This is the participant-facing calendar for the **Robotics Dream Keeper Challenge — 2026 Winter**. Registration, webinar, and livestream access links will be added to [README.md](./README.md) as they are announced.
 
 ## Milestones at a Glance
 
 | Date | Milestone | Participant action |
 |---|---|---|
-| **Sep 26–29, 2026** | Internal preparation | No participant action |
 | **Sep 30, 2026** | Challenge announcement and registration open | Read the rules and begin onboarding |
 | **Oct 31, 2026** | Registration closes / final call | Complete all registration steps |
 | **Nov 1, 2026** | Competition kickoff; Stage 1 opens | Begin Ignite challenges |
@@ -20,15 +19,6 @@ This is the working public calendar for the **Robotics Dream Keeper Challenge �
 | **Jan 7, 2027** | Show & Tell / awards livestream | Join the closing event |
 | **By Jan 31, 2027** | Long-tail showcase and case-study closeout | Respond to interview or asset requests if selected |
 
-## Phase 0 — Internal Preparation
-
-### September 26–29
-
-- Complete repository, registration, and Discord setup.
-- Prepare Winter key visual, recruitment poster, community long graphic, and webinar templates.
-- Test every participant-facing link and Pull Request path.
-- Keep public channels quiet until the official announcement.
-
 ## Phase 1 — Announcement and Registration
 
 ### September 30 — Announcement Day
@@ -41,43 +31,43 @@ This is the working public calendar for the **Robotics Dream Keeper Challenge �
 
 - Publish the first pre-challenge Q&A workshop preview.
 
-### October 8–15 — Distributor, Media, and Partner Launch
+### October 8–15 — Webinar Preview and Registration Support
 
-- Add campaign banners to distributor channels.
-- Begin partner invitations, media outreach, and KOL content.
 - Publish the first webinar preview on **October 8**.
-- Run Webinar 1 / kickoff on **October 15**, subject to final event confirmation.
+- Run Webinar 1 / kickoff on **October 15** after the event link is announced.
+- Share onboarding reminders and answer registration questions.
 
-### October 16–23 — First Partner Wave and Paid Promotion
+### October 16–23 — Previous Season Spotlights
 
-- Send confirmed partners a ready-to-publish campaign kit.
-- Start targeted promotion and KOL amplification.
+- Feature selected projects from the [2026 Summer project wall](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/SHOWCASE.md).
+- Use previous submissions to explain the expected evidence, documentation, and demo quality.
+- Continue participant Q&A and registration reminders.
 
 ### October 24–31 — Final Registration Push
 
-- Run the second partner wave using the kickoff creative.
-- Publish guest call-to-action videos.
-- Push livestream reservations and the registration final call.
+- Publish guest call-to-action videos and previous participant stories.
+- Share the registration final call and kickoff reminders.
+- Complete all onboarding steps by **October 31**.
 
 ## Phase 2 — Competition
 
 ### November 1–10 — Stage 1: Ignite Challenge
 
 - **Nov 1:** kickoff broadcast, Stage 1 task walkthrough, and official opening post.
-- **Nov 2–9:** beginner tutorials, mentor Q&A excerpts, webinar or office-hour support.
+- **Nov 2–9:** beginner tutorials, mentor Q&A excerpts, webinar or office-hour support, and selected [Summer Stage 1 references](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/stages/stage1-ignite.md).
 - **Nov 5:** preview the mid-program workshop.
 - **Nov 9:** deadline reminder campaign.
 - **Nov 10:** Stage 1 submission window closes.
 
 ### November 11–26 — Stage 2: Build Challenge
 
-- Publish system-design guidance and office-hour support.
+- Publish system-design guidance, office-hour support, and selected [Summer Stage 2 references](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/stages/stage2-build.md).
 - **Nov 20:** Stage 2 deadline reminder campaign.
 - **Nov 26:** Stage 2 closes and the RDK Builder list is prepared for publication.
 
 ### November 27–December 15 — Stage 3: Launch Challenge
 
-- **Nov 27–Dec 10:** final-demo sprint; publish countdowns and submission guidance for GitHub repositories and demo videos.
+- **Nov 27–Dec 10:** final-demo sprint; publish countdowns, selected [Summer Stage 3 examples](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/SHOWCASE.md), and submission guidance for GitHub repositories and demo videos.
 - **Dec 12–15:** final 72-hour rescue window with FAQ and last-call reminders.
 - **Dec 15:** final submission deadline.
 
@@ -104,27 +94,8 @@ This is the working public calendar for the **Robotics Dream Keeper Challenge �
 - Convert high-quality projects into a reusable RDK case-study library.
 - Connect selected projects with later D-Robotics developer programming where applicable.
 
-## Webinar Track — Confirmation Required
+## Webinars and Office Hours
 
-The planning brief contains conflicting webinar dates. Do not publish the following as final until the event owner confirms them:
+Webinars and office hours will run alongside the three stages. Confirmed dates, speakers, registration links, and replay links will be announced in [README.md](./README.md) and the official Discord challenge channel.
 
-| Session | Working date | Status |
-|---|---|---|
-| **Webinar 1 — Kickoff + participant list** | Preview **Oct 8** · Live **Oct 15** · Replay/list **Oct 16** | Consistent in the detailed communications plan |
-| **Webinar 2 — Theme session + RDK Explorer list** | **Oct 29** | Mentioned in the program summary; detailed communications row is missing |
-| **Webinar 3 — Theme session + RDK Builder list** | **Nov 12** or **Dec 3** | Conflicting dates; detailed communications plan says preview Nov 26, live Dec 3, replay Dec 4 |
-| **Awards livestream** | **Jan 7, 2027** | Use after format and livestream link are confirmed |
-
-## Publication Gate
-
-Before this repository goes public, confirm:
-
-- [ ] Registration form URL
-- [ ] Discord invite and channel name
-- [ ] Webinar 2 and Webinar 3 dates
-- [ ] Webinar registration / replay links
-- [ ] Livestream platform and awards format
-- [ ] Mentor and guest judge lineup
-- [ ] Partner renewal list and coordinated post dates
-- [ ] Winter visual assets
-- [ ] Prize eligibility, tax, and shipping language
+For an example of the program format and pacing, see the [2026 Summer Challenge repository](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge).

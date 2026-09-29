@@ -58,3 +58,11 @@ Provide all of the following:
 - Stage 3 access.
 - One hour of 1-on-1 technical support.
 - Show & Tell consideration for strong proposals.
+
+## Previous Season Reference
+
+- [2026 Summer Stage 2 requirements](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/stages/stage2-build.md)
+- [Vision Based Cleaner Robot](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/projects/SandunRanasinghe-Vision-Based-Cleaning-Robot.md) — an example of a Stage 2 concept and architecture submission
+- [2026 Summer project wall](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge/blob/develop/SHOWCASE.md)
+
+Use these for inspiration only; submit against the Winter requirements above.
