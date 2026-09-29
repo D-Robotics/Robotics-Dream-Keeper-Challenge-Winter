@@ -8,7 +8,7 @@ Registration runs **September 30–October 31, 2026**. Stage 1 runs **November 1
 
 ### Where are the registration, Discord, and webinar links?
 
-They will be added to [README.md](../README.md) after organizer confirmation. Do not use links copied from a previous season unless the organizer explicitly re-confirms them.
+The confirmed registration and Discord links are listed in [README.md](../README.md). Webinar and livestream links will be added there after announcement.
 
 ### Can I work ahead?
 

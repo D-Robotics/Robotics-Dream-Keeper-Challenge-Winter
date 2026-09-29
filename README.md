@@ -61,8 +61,8 @@ These are references, not Winter submissions. Winter participants must follow th
 
 Complete all onboarding steps to unlock Stage 1 and program support:
 
-1. **Submit the application form:** `TBD — organizer to add the Winter registration URL`.
-2. **Join the official Discord challenge channel:** `#robotics-dream-keeper-challenge` — invite link to be confirmed.
+1. **Submit the application form:** https://forms.gle/ojG5pRmWXMsM27Vb9
+2. **Join the official Discord challenge channel:** https://discord.gg/ydVxBpz3vP
 3. **Post a short self-introduction** in your personal Discord forum thread.
 4. **Install and activate RDK Studio:** https://developer.d-robotics.cc/en/rdkstudio
 
@@ -98,10 +98,10 @@ Eligibility, judging dimensions, rewards, and distribution timing are documented
 
 ## Learning and Technical Resources
 
-- [RDK course demos](https://github.com/D-Robotics/rdk-course-demos)
+- [D-Robotics documentation](https://developer.d-robotics.cc/en/documentation)
+- [RDK course demos](https://d-robotics.github.io/rdk-course-demos/)
 - [RDK Model Zoo](https://github.com/D-Robotics/rdk_model_zoo)
 - [RDK Studio](https://developer.d-robotics.cc/en/rdkstudio)
-- [D-Robotics documentation](https://developer.d-robotics.cc/en/documentation)
 - [D-Robotics GitHub organization](https://github.com/D-Robotics)
 - [2026 Summer Challenge archive](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge)
 
@@ -111,7 +111,7 @@ Eligibility, judging dimensions, rewards, and distribution timing are documented
 
 | Channel | Link / Contact |
 |---|---|
-| **Discord challenge channel** | Invite URL to be confirmed |
+| **Discord challenge channel** | https://discord.gg/ydVxBpz3vP |
 | **Program contact** | `developer@d-robotics.cc` |
 | **Issues** | Use this repository for repository, rules, and submission questions after publication |
 | **Technical samples** | [rdk-course-demos](https://github.com/D-Robotics/rdk-course-demos) · [rdk_model_zoo](https://github.com/D-Robotics/rdk_model_zoo) |
