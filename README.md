@@ -11,10 +11,6 @@ Add the approved winter key visual at assets/poster.png, then enable the image b
 
 Registration opens **September 30, 2026** · Final submissions close **December 15, 2026** · Show & Tell **January 7, 2027**
 
-</div>
-
-> [!IMPORTANT]
-> Registration, Discord, webinar, and livestream links will be added here as they are announced. The stage calendar below is the participant-facing Winter schedule.
 
 ---
 
