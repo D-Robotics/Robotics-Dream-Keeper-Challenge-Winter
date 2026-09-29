@@ -16,11 +16,11 @@ Registration opens **September 30, 2026** · Final submissions close **December 
 
 ## Overview
 
-The **Robotics Dream Keeper Challenge — 2026 Winter** is the second season of the RDK Challenge: a staged, hands-on robotics program built around real hardware and production-style delivery. Participants progress from first boot on the **D-Robotics RDK X5** to a complete, demo-ready AI or robotics project with ROS 2 integration, accelerated inference, and community visibility.
+The **Robotics Dream Keeper Challenge** is a **staged, hands-on robotics program** built around real hardware and production-style delivery. Participants progress from first boot on **D-Robotics RDK X5** to a **complete, demo-ready AI / robotics project** with ROS 2 integration, accelerated inference, and community visibility.
 
-The Winter season keeps the Summer challenge structure, progression, judging framework, and participant workflow. The visual identity will be refreshed for winter after the approved artwork is available.
+Each stage has a suggested milestone window, but submissions can **roll flexibly** across the full program period. **Complete all 3 stages by December 15, 2026** to be considered as having finished the full program.
 
-**Why join:** structured milestones, an embedded Online Bootcamp, webinars and office hours, direct RDK technical support, stage titles, community recognition, and the opportunity to enter the wider RDK ecosystem.
+**Why join:** You gain structured milestones, **embedded Online Bootcamp** sessions, **weekly office hours / Q&A**, and direct **RDK technical support** from the ecosystem team. You improve system design and on-device AI skills, earn **titles, badges, and awards**, and connect with the global **RDK developer community**.
 
 ---
 
