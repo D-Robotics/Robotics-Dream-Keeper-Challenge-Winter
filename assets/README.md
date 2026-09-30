@@ -1,8 +1,8 @@
-# Visual Asset Placeholders
+# Visual Assets
 
-No Summer artwork has been copied into this Winter repository. Add only approved Winter assets.
+Only approved Winter assets belong in this directory.
 
-Planned paths:
+Current and planned paths:
 
 ```text
 assets/
@@ -16,4 +16,6 @@ assets/
 └── demo-video/
 ```
 
-Before adding an asset, confirm publication rights, accessible alt text, filename stability, and reasonable file size. Update the commented image placeholders in the relevant Markdown only after the approved file exists.
+`poster.png` is the Winter Challenge key visual used at the top of the repository README.
+
+Before adding an asset, confirm publication rights, accessible alt text, filename stability, and reasonable file size.

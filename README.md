@@ -2,10 +2,7 @@
 
 # Robotics Dream Keeper Challenge — 2026 Winter
 
-<!-- WINTER KEY VISUAL PLACEHOLDER
-Add the approved winter key visual at assets/poster.png, then enable the image below.
 <img src="./assets/poster.png" alt="Robotics Dream Keeper Challenge 2026 Winter" width="720"/>
--->
 
 **Power on. Build. Launch your intelligent robot on RDK X5.**
 

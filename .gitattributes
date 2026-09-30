@@ -1,0 +1,6 @@
+# Keep visual assets byte-for-byte in Git.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
