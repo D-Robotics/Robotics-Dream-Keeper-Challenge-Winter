@@ -74,26 +74,26 @@ flowchart TB
 
 1. Development Computer
 
-Main development computer is a Window pc used to access and configure RDK X5 via:
- - SSH
- - Remote VNC Desktop
+   Main development computer is a Window pc used to access and configure RDK X5 via:
+   - SSH
+   - Remote VNC Desktop
 
 2. USB Webcam
 
-Main source of data connected via RDK X5 USB port.
-The webcam has been tested as a connected peripheral.
+   Main source of data connected via RDK X5 USB port.
+   The webcam has been tested as a connected peripheral.
 
 4. pydev_demo
 
-YOLO11 Pose is one of the tested application in this project.
+   YOLO11 Pose is one of the tested application in this project.
 
 5. Output
 
-The AI applications like pydev_demo examples produce outputs documented through:
+   The AI applications like pydev_demo examples produce outputs documented through:
 
- - Screenshots via Remote Desktop
- - Text logs
- - Video #TODO for stage 2,3
+     - Screenshots via Remote Desktop
+     - Text logs
+     - Video #TODO for stage 2,3
 
 ## Links and Evidence
 
@@ -103,7 +103,7 @@ The AI applications like pydev_demo examples produce outputs documented through:
 
 ## Known Limitations and Safety
 
-Remote desktop via USB Quick-link speed is still really slow.
+   Remote desktop via USB Quick-link speed is still really slow.
 
 ---
 
