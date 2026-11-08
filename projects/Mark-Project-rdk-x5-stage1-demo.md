@@ -60,7 +60,7 @@ flowchart TB
     PC --> QUICK
     QUICK -->|"USB Connection"| OS
 
-    PC -->|"Your actual network connection"| SSH
+    PC -->|"My network connection"| SSH
     SSH --> OS
 
     CAMERA -->|"USB Connection"| CAMTEST
