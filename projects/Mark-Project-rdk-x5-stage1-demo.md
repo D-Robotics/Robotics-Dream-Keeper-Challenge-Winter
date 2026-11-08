@@ -21,9 +21,9 @@ Stage 1 completed. RDK x5 successfully bootup RDK OS and remote desktop via USB 
 Currently consists of Windows development computer running remote desktop via USB Quick-link, RDK x5 running RDK OS, SSH access, USB webcam and AI demonstration applications.
 
 The architecture is divided into three main parts:
- 1.Development and remote access
- 2.RDK X5 hardware
- 3.On-device AI demonstration
+ - 1.Development and remote access
+ - 2.RDK X5 hardware
+ - 3.On-device AI demonstration
 
 ### Architecture Diagram
 
