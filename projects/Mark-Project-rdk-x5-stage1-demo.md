@@ -44,14 +44,13 @@ flowchart TB
         OS["RDK OS Successfully Booted"]
 
         subgraph HARDWARE["Hardware Verification"]
-            CAMERA["USB UVC Webcam"]
+            CAMERA["USB Webcam"]
             CAMTEST["Camera Connection Test"]
         end
 
         subgraph AI["On-device AI Demonstrations"]
             PYDEV["pydev_demo Applications"]
             YOLO["YOLO11 Pose Demo"]
-            OTHER["Other Tested Demo Applications"]
             OUTPUT["Observed Demo Results"]
         end
 
@@ -68,10 +67,8 @@ flowchart TB
 
     OS --> PYDEV
     PYDEV --> YOLO
-    PYDEV --> OTHER
 
     YOLO --> OUTPUT
-    OTHER --> OUTPUT
 ```
 
 
