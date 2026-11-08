@@ -27,8 +27,6 @@ The architecture is divided into three main parts:
 
 ### Architecture Diagram
 
-### Architecture Diagram
-
 ```mermaid
 flowchart TB
 
