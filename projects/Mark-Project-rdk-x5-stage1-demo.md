@@ -27,43 +27,51 @@ The architecture is divided into three main parts:
 
 ### Architecture Diagram
 
+### Architecture Diagram
+
 ```mermaid
 flowchart TB
-    PC["Windows PC"]
 
-    subgraph ACCESS["Development & Remote Access"]
-        QUICK["USB Quick-link<br/>(Remote Desktop)"]
-        SSH["SSH<br/>(PowerShell / CMD)"]
-    )
+    PC["Windows Development PC"]
+
+    subgraph ACCESS["Development and Remote Access"]
+        QUICK["USB Quick-link Remote Desktop"]
+        SSH["SSH via PowerShell or CMD"]
+    end
 
     subgraph BOARD["D-Robotics RDK X5"]
-        OS["RDK OS<br/>(Successful Boot)"]
-        
+
+        OS["RDK OS Successfully Booted"]
+
         subgraph HARDWARE["Hardware Verification"]
-            CAMERA["USB Webcam"]
+            CAMERA["USB UVC Webcam"]
             CAMTEST["Camera Connection Test"]
         end
 
-        subgraph AI["AI Demonstrations"]
-            PYDEV["pydev_demo"]
+        subgraph AI["On-device AI Demonstrations"]
+            PYDEV["pydev_demo Applications"]
             YOLO["YOLO11 Pose Demo"]
+            OTHER["Other Tested Demo Applications"]
             OUTPUT["Observed Demo Results"]
         end
+
     end
 
-    %% Connections
     PC --> QUICK
-    PC -->|"Wi-Fi / Ethernet / USB Network"| SSH
-    
-    QUICK --> OS
+    QUICK -->|"USB Connection"| OS
+
+    PC -->|"Your actual network connection"| SSH
     SSH --> OS
-    
+
+    CAMERA -->|"USB Connection"| CAMTEST
     OS --> CAMTEST
-    CAMERA --> CAMTEST
-    
+
     OS --> PYDEV
     PYDEV --> YOLO
+    PYDEV --> OTHER
+
     YOLO --> OUTPUT
+    OTHER --> OUTPUT
 ```
 
 
