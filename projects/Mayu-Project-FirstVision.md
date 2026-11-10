@@ -38,6 +38,6 @@ USB webcam → RDK X5 camera sample and YOLO detection → remote desktop displa
 
 This is an unmodified sample demonstration, not an integrated moving robot. No actuator was used. BPU acceleration, performance, and broader detection accuracy have not been verified.
 
-## Promotion consent
+---
 
-Pending participant confirmation of the organizers' showcase usage terms.
+I agree that this showcase document may be used by the Robotics Dream Keeper Challenge organizers for program promotion, judging, and archives as described in the official README.
