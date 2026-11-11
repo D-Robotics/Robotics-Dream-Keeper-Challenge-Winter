@@ -1,6 +1,6 @@
 # RDK X5 Room Organizer
 
-**Participant:** Bheesha Kumari  
+**Participant:** Bheesha   
 **GitHub Username:** bheesha  
 **Challenge:** Robotics Dream Keeper Winter 2026  
 **Current Stage:** Stage 1 — Ignite (Completed)  
