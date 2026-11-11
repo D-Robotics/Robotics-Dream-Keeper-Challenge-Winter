@@ -3,7 +3,7 @@
 - **Participant:** ButeraBeni
 - **Stage completed:** 1
 - **Repository:** <https://github.com/buterabeni-web/rdk-x5-autonomous-drone>
-- **Demo video:** <https://github.com/buterabeni-web/rdk-x5-autonomous-drone#3-first-ai-task--yolo-object-detection-on-the-bpu>
+- **Demo video:** <https://github.com/user-attachments/assets/206f594d-c7a0-4acc-b9b2-ef0c5b23fccf>
 - **Community post:** <https://discord.com/channels/1300358874280230994/1568536611594174534/1569940832348536994>
 - **License:** MIT
 
