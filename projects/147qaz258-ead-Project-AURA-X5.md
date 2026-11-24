@@ -38,6 +38,8 @@ Full module responsibilities, failure modes, compute allocation, and ROS 2 topic
 ### Stage 1 — Ignite Evidence (Verified on Live RDK X5, 2026-11-24)
 - Stage 1 full report: https://github.com/147qaz258-ead/AURA-X5/blob/main/docs/STAGE1_IGNITE.md
 - Flash + RDK Studio + SSH & internet screenshot: https://github.com/147qaz258-ead/AURA-X5/blob/main/docs/evidence/stage1/01_flash_and_ssh.png
+- Live RDK X5 powered hardware & 40-pin wiring photo: https://github.com/147qaz258-ead/AURA-X5/blob/main/docs/evidence/stage1/02a_rdk_x5_hardware_bringup.jpg
+- Live 3D-printed embodied dual-eye robot head prototype photo (RDK X5 + dual ESP32 + Arduino Uno): https://github.com/147qaz258-ead/AURA-X5/blob/main/docs/evidence/stage1/02b_embodied_dual_eye_prototype.jpg
 - Sensor / ES8326 I2S microphone waveform & hardware interfaces: https://github.com/147qaz258-ead/AURA-X5/blob/main/docs/evidence/stage1/02_sensor_mic_i2s.png
 - On-device YOLO11n BPU object detection output & runtime log: https://github.com/147qaz258-ead/AURA-X5/blob/main/docs/evidence/stage1/03_first_ai_yolo11_bpu.png
 - Raw BPU runtime log: https://github.com/147qaz258-ead/AURA-X5/blob/main/docs/evidence/stage1/yolo11_bpu_run.log
