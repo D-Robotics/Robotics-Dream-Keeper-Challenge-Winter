@@ -1,85 +1,145 @@
-# IMX708 Camera + YOLOv8 on the RDK X5 BPU
+# Vision-Guided Desk Sorter: RDK X5 Eyes on a Fairino FR5 Arm
 
 - **Participant:** ZakiePanahipour
-- **Stage completed:** 1
+- **Stage completed:** 2
 - **Repository:** https://github.com/Spnh2000/rdk-x5-dreamkeeper
-- **Demo video:** https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/05-yolo-demo.gif
+- **Proposal:** https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage2/PROPOSAL.md
+- **Architecture:** https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage2/ARCHITECTURE.md
+- **Engineering plan:** https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage2/ENGINEERING_PLAN.md
+- **Roadmap:** https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/ROADMAP.md
+- **Demo video (Stage 1):** https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/05-yolo-demo.gif
 - **Community post:** https://discord.com/channels/1300358874280230994/1565637529737105498
 - **License:** GPL-2.0 (the camera driver is derived from the GPL-2.0 Raspberry Pi Linux driver)
 
 ## Summary
 
-The RDK X5 ships with drivers for a handful of camera sensors, but not for the
-Sony IMX708, the 12 MP sensor of the Raspberry Pi Camera Module 3 and of many
-low-cost Arducam modules. This Stage 1 project brings up an RDK X5 from a fresh
-RDK OS 3.5.0 image, makes an Arducam IMX708 camera work on it, and runs
-real-time YOLO object detection on the board's BPU with that camera.
+Industrial arms repeat taught paths well, but a taught path only works when
+every object is always in the same place. To handle objects lying anywhere,
+the arm has to see them, and vision for industrial arms is usually an
+expensive, closed, PC-based product. This project shows that a low-cost
+embedded board riding on the arm can provide the eyes and the decisions.
 
-The Raspberry Pi kernel driver was ported to the X5 camera pipeline in its V4L2
-mode: a single source pad, embedded-data lines off, and one 2x2-binned,
-centre-cropped 1920x1080 mode at 56 fps, plus a CAM0 device tree overlay and
-ISP files. A small rclpy node streams NV12 frames from `/dev/video8` into
-ROS 2. Because the TogetheROS YOLO example resizes images through a stack that
-is not available in V4L2 mode, the node also publishes a letterboxed 640x640
-image, which the detector uses directly.
+An RDK X5 and an IMX708 camera are mounted on the wrist of a Fairino FR5
+collaborative arm with a Jodell EPG40-050 electric gripper. The arm surveys a
+table, a YOLOv8 segmentation model on the BPU finds and outlines everyday
+objects (bottles, cups, cutlery, scissors, toothbrushes, bananas), and the
+RDK X5 turns each mask into a table position and grasp angle using the wrist
+pose and a hand-eye calibration. Above each object the camera checks again
+from close up, then the arm grasps it and drops it into the bin for its kind.
+A safety supervisor checks every command before it reaches the arm; a web
+page starts, pauses and stops the run.
 
-Result: YOLOv8n runs on every camera frame, at 56 detections per second, with
-6-7 ms BPU inference and 18 ms from frame to result. The live view with boxes
-is served in the browser. The public repository contains the driver, an
-install script that reproduces the setup from a fresh header tree, the ROS 2
-node and launch file, evidence, and troubleshooting notes. These include how to
-recover from a sensor that locks its I2C bus. This camera pipeline is the
-foundation for the next stages.
+Stage 1 delivered the base: a kernel driver ported so the IMX708 works on the
+X5, and YOLOv8n on the BPU at 56 detections/s with 7 ms inference. Stage 2
+adds the proposal, the system and ROS 2 architecture, the compute plan, a
+parts list, five risks with fallbacks, and a dated roadmap to the final demo
+on 15 December. The arm, gripper and mounting are in place and their
+specifications have been checked on site.
+
+## Intended User and Scenario
+
+Lab staff or makers who want a tidy work area without teaching the robot
+every object position, and visitors watching a demonstration. Up to 8
+objects lie at random on a table of about 60 x 80 cm next to the arm; three
+labelled bins stand at fixed positions. The user starts a run from a web page
+and can stop it at any time; the arm's hardware emergency stop always
+overrides the software. Objects the robot cannot classify or grasp stay on
+the table and are listed.
+
+## Capabilities and Innovation
+
+| Layer | Capability |
+|-------|------------|
+| Perception | IMX708 on the wrist at 56 fps; YOLOv8n-seg on the BPU for class, box and mask; position on the table from pixel ray + wrist pose + table plane |
+| Decision | sorting state machine (survey → choose → approach → close-up check → grasp → verify → place); grasp check from the gripper finger position |
+| Actuation | FR5 (controller v3.9.8) commanded over Ethernet with Fairino's official SDK; EPG40-050 gripper (Modbus RTU) through the controller |
+| Safety | software workspace box and minimum height, speed ≤ 250 mm/s, heartbeat with automatic stop, controller collision detection, hardware e-stop |
+
+Compared with a stock demo: a sensor with no X5 support made to work by a
+ported driver; detection closes the loop to an industrial arm; the camera
+moves with the arm (survey from far, correct from close up); masks give the
+grasp angle instead of axis-aligned boxes; no PC in the loop.
+
+## Measurable Stage 3 Targets
+
+Design targets, measured at the final demo over 20 objects placed at random.
+
+| Metric | Target |
+|--------|--------|
+| Detection rate on the BPU, live camera | ≥ 30 fps (Stage 1 measured: 56 fps) |
+| Segmentation latency on the BPU | ≤ 30 ms per frame |
+| Image-to-arm-command latency | ≤ 100 ms |
+| Grasp position error on the table | ≤ 10 mm |
+| Classification accuracy of sorted objects | ≥ 90 % |
+| Objects sorted into the correct bin | ≥ 80 % of 20 |
+| Cycle time per object | ≤ 20 s |
+| Safety | 0 workspace violations; e-stop tested before every session |
 
 ## Technical Highlights
 
-- **RDK board / image:** D-Robotics RDK X5; RDK OS 3.5.0 (`rdk-x5-ubuntu22-preinstalled-desktop-3.5.0-arm64`), Ubuntu 22.04.5, Linux 6.1.83, TogetheROS Humble.
-- **AI model and runtime:** YOLOv8n, 640x640 NV12, 80 COCO classes (`/opt/hobot/model/x5/basic/yolov8_640x640_nv12.bin`), run by TogetheROS `dnn_node_example` 2.6.1 on the BPU.
-- **Sensors and actuators:** Arducam IMX708 12 MP camera on CAM0: video over MIPI CSI-2 (2 lanes), control over I2C (bus 6, address `0x1a`), out-of-tree V4L2 driver ported from Raspberry Pi Linux; 1920x1080 at 56 fps, scaled in hardware. No actuators in Stage 1.
-- **ROS 2 design:** `imx708_cam` (rclpy, V4L2 mmap) publishes `/image_raw` (960x544 NV12) and `/image_yolo` (640x640 letterbox); `dnn_node_example` publishes `/hobot_dnn_detection` (`ai_msgs/PerceptionTargets`); `hobot_codec` (hardware JPEG) and `websocket` serve the live view on port 8000.
-- **BPU evidence and performance:** measured on the board: 6-7 ms inference, 1 ms preprocessing, 3-4 ms post-processing, 18 ms from frame to result, 56 detections/s, BPU load 21 % (`hrut_somstatus`), about 25 % of the 8 CPU cores for the whole pipeline.
+- **RDK board / image:** D-Robotics RDK X5; RDK OS 3.5.0, Ubuntu 22.04.5, Linux 6.1.83, TogetheROS Humble; mounted on the arm.
+- **AI model and runtime:** YOLOv8n-seg (instance segmentation, 640x640 NV12) on the BPU; Stage 1 YOLOv8n detection measured at 7 ms per frame.
+- **Sensors and actuators:** Arducam IMX708 12 MP over MIPI CSI-2 + I2C (ported V4L2 driver), FR5 joint encoders and TCP pose, gripper finger position; Fairino FR5 6-axis cobot, Jodell EPG40-050 parallel gripper (0–40 mm, 2–50 N).
+- **ROS 2 design:** imx708_cam → segmenter → tracker → localizer → sorter → safety_supervisor → fr5_bridge; custom `sorter_msgs` with a `MoveToPose` action and `Gripper` service; every arm command passes the supervisor.
+- **Compute allocation:** BPU: segmentation (budget ≤ 30 ms, ≤ 60 % load). ISP/VSE: scaling; JPU: JPEG for the web view. CPU: camera, mask decoding, tracking, localisation, state machine, supervisor, SDK (≤ 2 of 8 cores). FR5 controller: kinematics, motion planning, collision detection. No off-board service.
 
-| Stage | Rate / time |
-|-------|-------------|
-| Camera → `/image_raw`, `/image_yolo` | 56 fps |
-| YOLOv8n inference on the BPU | 6-7 ms |
-| Frame to detection result | 18 ms |
-| Detection output `/hobot_dnn_detection` | 56 Hz |
-| Hardware JPEG for the web view | 56 fps |
-| BPU load while detecting at 56 Hz | 21 % |
-
-## Architecture
+## System Architecture
 
 ```mermaid
 flowchart LR
-  S["IMX708"] -- "MIPI CSI-2" --> P["CSI → SIF → ISP → VSE<br/>/dev/video8 (V4L2, NV12)"]
-  S -. "I2C bus 6, 0x1a" .- D["imx708.ko"]
-  P --> C["imx708_cam<br/>ROS 2 node"]
-  C -- "/image_yolo 640x640" --> Y["dnn_node_example<br/>YOLOv8n on the BPU"]
-  C -- "/image_yolo" --> J["hobot_codec<br/>JPEG encoder"]
-  Y -- "/hobot_dnn_detection" --> W["websocket :8000"]
-  J -- "/image_jpeg" --> W
+  CAM["IMX708 on the wrist"] -- "MIPI CSI-2" --> CAMN["imx708_cam"]
+  CAMN -- "/image_yolo 640x640" --> SEG["segmenter<br/>YOLOv8n-seg on BPU"]
+  SEG -- "/perception/detections" --> TRK["tracker"]
+  TRK -- "/perception/tracks" --> LOC["localizer<br/>pixel → table"]
+  BR["fr5_bridge<br/>Fairino SDK"] -- "/fr5/state" --> LOC
+  LOC -- "/sorter/objects" --> SORT["sorter<br/>state machine"]
+  SORT == "move / gripper requests" ==> SAFE["safety supervisor"]
+  SAFE == "approved requests" ==> BR
+  BR -- "Ethernet" --> CTRL["FR5 controller"]
+  CTRL --> ARM["FR5 arm"]
+  CTRL -- "Modbus RTU" --> GRIP["EPG40-050 gripper"]
+  SORT -- "/sorter/status" --> WEB["web page"]
+  WEB == "/sorter/command" ==> SORT
 ```
 
-The sensor is controlled over I2C by the ported driver. Its frames pass the X5
-camera pipeline, which scales them in hardware and delivers them to the ROS 2
-camera node. The detector and the JPEG encoder both use the same 640x640
-image, so the boxes line up with the picture in the browser.
+The RDK X5 runs the camera, the AI and all decisions; the FR5 controller
+plans and executes every motion. Positions are computed only from images
+taken while the arm stands still, which avoids tight camera-to-arm time
+synchronisation. Full module table, topic and service tables with message
+types and rates, and the calibration plan are in
+[ARCHITECTURE.md](https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage2/ARCHITECTURE.md).
+
+## Engineering Plan
+
+The arm, gripper, RDK X5, camera, network equipment and 3D-printed mounts are
+in hand; only the sorting bins and a printed ChArUco calibration board
+remain (about 15 EUR). The top five risks are grasp position error, the
+segmentation model, limited arm time, hardware on the moving arm, and unsafe
+motion; each has a trigger, mitigation and fallback in
+[ENGINEERING_PLAN.md](https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage2/ENGINEERING_PLAN.md).
+Arm access is a few sessions per week, so the
+[ROADMAP.md](https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/ROADMAP.md)
+gives each of seven arm sessions one fixed goal and develops the rest off the
+arm with a mock arm and recorded camera data: M1 perception + arm connection
+(3 Dec), M2 one object sorted end to end (10 Dec), M3 benchmarks, demo video
+and submission (15 Dec).
 
 ## Links and Evidence
 
-- Flash and SSH: https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/01-flash.png, https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/02-ssh.png
-- Sensor (MIPI CSI-2 + I2C, V4L2, ROS 2 node): https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/04-sensor.log, https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/04-camera-frame.jpg
-- AI task on the BPU: https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/05-yolo-browser.png, https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/05-yolo-detections.jpg
-- Benchmarks (detection rate, BPU timing, BPU load): https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/05-yolo.log
+- Stage 2 design: [proposal](https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage2/PROPOSAL.md), [architecture](https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage2/ARCHITECTURE.md), [engineering plan](https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage2/ENGINEERING_PLAN.md), [roadmap](https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/ROADMAP.md)
+- Stage 1 flash and SSH: https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/01-flash.png, https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/02-ssh.png
+- Stage 1 sensor (MIPI CSI-2 + I2C, ROS 2 node): https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/04-sensor.log, https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/04-camera-frame.jpg
+- Stage 1 AI on the BPU: https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/05-yolo-browser.png, https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/05-yolo-detections.jpg
+- Stage 1 benchmarks: https://github.com/Spnh2000/rdk-x5-dreamkeeper/blob/main/docs/stage1/05-yolo.log
 - Documentation (setup, commands, dependencies, troubleshooting): https://github.com/Spnh2000/rdk-x5-dreamkeeper#readme
 
 ## Known Limitations and Safety
 
-- The ISP tuning is borrowed from the IMX477: colours are plausible but not calibrated. Autofocus is not driven, and the driver offers one 1920x1080 mode.
-- The sensor can lock its I2C bus, for example after user-space access to bus 6. Only a power cycle clears it; the README documents the procedure and how to avoid it.
-- Detection is limited to the 80 COCO classes and depends on lighting and camera placement. Objects outside these classes get mislabelled (a computer mouse was once reported as a "sports ball").
-- No motors or actuators, so no motion hazards. The published images show desk objects; no faces. No Wi-Fi passwords, tokens, keys or device serials are published; serial-like strings in screenshots are greyed out.
+- Stage 2 is a design: the Stage 3 targets above are not yet measured. The segmentation latency on the BPU is the first measurement planned.
+- One camera without depth: objects must lie flat on the known table plane, not stacked; the gripper needs a grasp point narrower than about 38 mm and objects under 0.8 kg.
+- The ISP tuning is borrowed from the IMX477, and the sensor can lock its I2C bus (power-cycle recovery is documented).
+- The FR5 is a real industrial arm in a shared workplace: collaborative mode at ≤ 250 mm/s, the controller's collision detection, a software workspace box and minimum height, a heartbeat that stops the arm when the RDK X5 goes silent, the hardware e-stop tested before every session, and a person always present.
+- Published images show objects only; no faces, Wi-Fi passwords, tokens, keys, device serials or network addresses.
 
 ---
 
