@@ -54,4 +54,4 @@ The design proposes USB camera input, person detection on the RDK X5, direction 
 - [Body and leg concept](https://github.com/naosurobot-crypto/rdk-challenge-2026/blob/main/docs/pochaken-body-concept.svg)
 - [Roadmap](https://github.com/naosurobot-crypto/rdk-challenge-2026/blob/main/ROADMAP.md)
 - [Parts, risks and engineering plan](https://github.com/naosurobot-crypto/rdk-challenge-2026/blob/main/docs/pochaken-engineering-plan.md)
-- [Participant Discord thread](https://discord.com/channels/1300358874280230994/1566089489791590702/1569696959873421362) (server access required; Stage 2 post permalink to be added).
+- [Stage 2 community post](https://discord.com/channels/1300358874280230994/1566089489791590702/1575118227002892298) (Discord server access required).
