@@ -1,53 +1,43 @@
 # Home Court Robot
 
 - **Participant:** Shu
-- **Stage completed:** 1
-- **Repository:** https://github.com/shoujiki-panman/rdk-x5-home-court-robot
-- **Demo video:** Stage 1 evidence images in the repository (see Links and Evidence)
-- **Community post:** [Stage 1 check-in in Shu’s Discord thread](https://discord.com/channels/1300358874280230994/1566820028366585957/1569393185879228456)
+- **Stage completed:** 2 (Build design)
+- **Repository:** [Home Court Robot](https://github.com/shoujiki-panman/rdk-x5-home-court-robot)
+- **Demo evidence:** [Stage 1 BPU and USB camera evidence](https://github.com/D-Robotics/Robotics-Dream-Keeper-Challenge-Winter/pull/5) · [Stage 2 design](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/blob/main/docs/stage2/proposal.md)
+- **Community post:** [Stage 2 update in Shu’s Discord challenge thread](https://discord.com/channels/1300358874280230994/1566820028366585957)
 - **License:** [MIT License](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/blob/main/LICENSE)
 
 ## Summary
 
-Home Court Robot is a home robot that settles small family arguments, such as who ate the last snack, by looking at evidence instead of taking sides. RDK X5 is the brain: it watches the living room with a camera and detects events on the BPU, so family video never leaves the house. My StackChan desktop robot is the body: it turns to the person speaking, shows the logged evidence, and nods down like a gavel to announce a verdict.
+Home Court Robot adds a walking judge and a camera that can recognize physical evidence to my existing Japanese parent–child game, おうち裁判. Two players tell their sides, explain what their evidence shows, and hear a verdict. In the tabletop design, they can show a real object when the game asks for evidence. RDK X5 recognizes the object locally and adds the confirmed observation to the existing case record. The players still explain how the object supports what they said.
 
-For Stage 1, I brought up an RDK X5 at DUG Tokyo #1 in Akihabara on 2026-10-31. I connected it to a Mac with RDK Studio (RDK Type-C direct), logged in over SSH with a dedicated key, and recorded the system image and kernel. I attached a USB camera (ELECOM UCAM-C0220F), which appeared as `/dev/video0`, and captured frames with ffmpeg. Then I ran the official YOLO11n detection sample on the BPU, first on the sample image and then on live camera frames. A small script streams the live detections to a browser, and it ran at about 28 FPS with about 25 ms per frame.
+When the game accepts the request for a verdict, a StackChan wearing a printed judge's robe and gavel enters on Yeq6X's four-legged Strider base. It takes a short walk during the existing deliberation. Speech and the gavel sound keep their usual order, independent of the success of the walk.
 
-On 2026-11-10, I repeated the bring-up on a second RDK X5. I flashed RDK OS 3.5.0 Desktop with RDK Studio, booted the board, and connected from my Mac over USB-C SSH. The board reached the D-Robotics archive over Wi-Fi (HTTPS 200 with certificate verification). FFmpeg captured a 640×480 frame from a Logitech C270 on `/dev/video0`. The official YOLO11n sample ran on the BPU and saved detection results for both the C270 frame and the official `kite.jpg` sample.
+Stage 1 verified USB camera capture and official YOLO11n inference on the BPU. Stage 2 defines the two integration points, ROS 2 interfaces, compute allocation, and test targets. It includes printable costume CAD. Stage 3 will measure evidence recognition, movement timing, and complete two-player sessions.
 
 ## Technical Highlights
 
-- **RDK board / image:** RDK X5, Ubuntu 22.04.5 LTS, kernel 6.1.83, RDK OS 3.5.0
-- **AI model and runtime:** `yolo11n_detect_bayese_640x640_nv12.bin` (COCO 80 classes) with the official `pydev_demo` YOLO11 sample (`hbm_runtime`)
-- **Sensors and actuators:** USB cameras on `/dev/video0`: ELECOM UCAM-C0220F (October 31) and Logitech C270 (November 10). No actuators yet.
-- **ROS 2 design:** Not yet (planned for Stage 2)
-- **BPU evidence and performance:** The October 31 live-camera run reached 28.4 FPS at 640×480, with about 25 ms per frame for preprocessing, inference, and postprocessing. The November 10 retest used still images.
+- **RDK board / image:** RDK X5, RDK OS 3.5.0.
+- **AI model:** YOLO11n verified on BPU in Stage 1. Stage 3 will measure it on books and scissors in the evidence area.
+- **Sensors and actuators:** Fixed C270 USB camera and one K151 StackChan on the open-source Strider. The pilot uses the existing game's audio near the robot.
+- **ROS 2:** A camera topic, evidence service, and cancellable walking action connect to the current game.
+- **Stage 1 BPU performance:** The DUG Tokyo loaner recorded 28.4 FPS at 640 × 480. The November 10 C270 retest used still images.
 
 ## Architecture
 
-The October 31 live demo streamed YOLO11n detections to a browser. Both runs used USB-C SSH from the Mac and ran inference on the RDK X5’s BPU.
-
-```mermaid
-flowchart LR
-    Mac["Mac + RDK Studio"] -- "USB Type-C network<br/>192.168.128.10" --> X5["RDK X5"]
-    Cam["USB camera<br/>/dev/video0"] --> X5
-    X5 --> BPU["YOLO11n on BPU"]
-    BPU --> Web["Browser view<br/>(MJPEG, port 8080)"]
-```
+[Data flow, compute allocation, and ROS 2 interfaces](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/blob/main/docs/stage2/architecture.md)
 
 ## Links and Evidence
 
-The linked files below are from the October 31 run on the venue loaner. The November 10 run is documented above and in the Discord check-in.
-
-- Flash and SSH evidence: [01-ssh-system-info.txt](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/blob/main/evidence/01-ssh-system-info.txt)
-- Sensor proof: [02-camera-capture-blurred.jpg](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/blob/main/evidence/02-camera-capture-blurred.jpg)
-- AI output: [03-yolo11-kite.jpg](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/blob/main/evidence/03-yolo11-kite.jpg), [04-yolo11-camera-blurred.jpg](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/blob/main/evidence/04-yolo11-camera-blurred.jpg)
-- Documentation: [README](https://github.com/shoujiki-panman/rdk-x5-home-court-robot#readme)
+- [Stage 2 proposal and success targets](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/blob/main/docs/stage2/proposal.md)
+- [Stage 2 architecture](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/blob/main/docs/stage2/architecture.md)
+- [Stage 2 engineering plan, BOM, and risks](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/blob/main/docs/stage2/engineering-plan.md)
+- [Public roadmap](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/blob/main/ROADMAP.md)
+- [Stage 1 hardware and inference evidence](https://github.com/shoujiki-panman/rdk-x5-home-court-robot/tree/main/evidence) · [Stage 1 Discord check-in](https://discord.com/channels/1300358874280230994/1566820028366585957/1569393185879228456)
 
 ## Known Limitations and Safety
 
-- People's faces in the camera shots are pixelated before publishing.
-- There are no moving parts yet. When StackChan is added in Stage 3, its head motion will have speed limits and a stop command.
+The camera frames the evidence area and keeps the images on the RDK. The fixed lane separates walking from hands and the table edge. The gavel is a display prop. The costume has been checked against the published geometry, with physical fit and walking tests planned. The game can finish with a stationary judge after a motion fault.
 
 ---
 
