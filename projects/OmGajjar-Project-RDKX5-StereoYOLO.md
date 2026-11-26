@@ -1,9 +1,9 @@
-# RDK X5 Stereo YOLO → Stereo HIL: metric stereo perception, scored against ground truth
+# Parallax: stereo hardware-in-the-loop for the RDK X5
 
 - **Participant:** Om Gajjar
 - **Stage completed:** 2
-- **Repository:** <https://github.com/omgajjar1976/rdk-x5-stereo-yolo>
-- **Demo evidence:** screenshots and photos, https://github.com/omgajjar1976/rdk-x5-stereo-yolo/tree/main/docs/images
+- **Repository:** <https://github.com/omgajjar1976/rdk-x5-parallax>
+- **Demo evidence:** screenshots and photos, https://github.com/omgajjar1976/rdk-x5-parallax/tree/main/docs/images
 - **Community post:** Stage 2: https://discord.com/channels/1300358874280230994/1574712116047515648/1575452279417344141 · Stage 1: https://discord.com/channels/1300358874280230994/1574712116047515648/1575423831630286938
 - **License:** Apache-2.0
 
@@ -32,19 +32,19 @@ board in the loop against seven measurable targets.
 
 ## Architecture
 
-![Stereo HIL data flow](https://github.com/omgajjar1976/rdk-x5-stereo-yolo/raw/main/docs/figures/hil_architecture_light.svg)
+![Stereo HIL data flow](https://github.com/omgajjar1976/rdk-x5-parallax/raw/main/docs/figures/hil_architecture_light.svg)
 
-Full ROS 2 graph with message types and rates: [ARCHITECTURE.md](https://github.com/omgajjar1976/rdk-x5-stereo-yolo/blob/main/docs/stage2/ARCHITECTURE.md)
+Full ROS 2 graph with message types and rates: [ARCHITECTURE.md](https://github.com/omgajjar1976/rdk-x5-parallax/blob/main/docs/stage2/ARCHITECTURE.md)
 
 ## Links and Evidence
 
-- Stage 2 proposal (scenario, users, innovation, 7 targets): https://github.com/omgajjar1976/rdk-x5-stereo-yolo/blob/main/docs/stage2/PROPOSAL.md
-- Architecture (data flow, modules and failure modes, compute allocation, ROS 2 graph): https://github.com/omgajjar1976/rdk-x5-stereo-yolo/blob/main/docs/stage2/ARCHITECTURE.md
-- Engineering plan (BOM, top five risks, repository structure): https://github.com/omgajjar1976/rdk-x5-stereo-yolo/blob/main/docs/stage2/ENGINEERING_PLAN.md
-- Roadmap: https://github.com/omgajjar1976/rdk-x5-stereo-yolo/blob/main/ROADMAP.md
-- Stage 1 evidence: flash + SSH https://github.com/omgajjar1976/rdk-x5-stereo-yolo/blob/main/docs/images/01_flash_ssh_rdkos_info.png · sensor https://github.com/omgajjar1976/rdk-x5-stereo-yolo/blob/main/docs/images/02_camera_init_rate_internet.png · AI with distance https://github.com/omgajjar1976/rdk-x5-stereo-yolo/blob/main/docs/images/04_ai_bottle_30cm.jpg
-- Benchmarks and accuracy: https://github.com/omgajjar1976/rdk-x5-stereo-yolo#results
-- Stock-stack issues and upstream PRs: https://github.com/omgajjar1976/rdk-x5-stereo-yolo/blob/main/UPSTREAM_ISSUES.md
+- Stage 2 proposal (scenario, users, innovation, 7 targets): https://github.com/omgajjar1976/rdk-x5-parallax/blob/main/docs/stage2/PROPOSAL.md
+- Architecture (data flow, modules and failure modes, compute allocation, ROS 2 graph): https://github.com/omgajjar1976/rdk-x5-parallax/blob/main/docs/stage2/ARCHITECTURE.md
+- Engineering plan (BOM, top five risks, repository structure): https://github.com/omgajjar1976/rdk-x5-parallax/blob/main/docs/stage2/ENGINEERING_PLAN.md
+- Roadmap: https://github.com/omgajjar1976/rdk-x5-parallax/blob/main/ROADMAP.md
+- Stage 1 evidence: flash + SSH https://github.com/omgajjar1976/rdk-x5-parallax/blob/main/docs/images/01_flash_ssh_rdkos_info.png · sensor https://github.com/omgajjar1976/rdk-x5-parallax/blob/main/docs/images/02_camera_init_rate_internet.png · AI with distance https://github.com/omgajjar1976/rdk-x5-parallax/blob/main/docs/images/04_ai_bottle_30cm.jpg
+- Benchmarks and accuracy: https://github.com/omgajjar1976/rdk-x5-parallax#results
+- Stock-stack issues and upstream PRs: https://github.com/omgajjar1976/rdk-x5-parallax/blob/main/UPSTREAM_ISSUES.md
 
 ## Known Limitations and Safety
 
