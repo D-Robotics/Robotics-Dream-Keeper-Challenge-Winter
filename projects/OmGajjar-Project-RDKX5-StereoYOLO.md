@@ -4,7 +4,7 @@
 - **Stage completed:** 2
 - **Repository:** <https://github.com/omgajjar1976/rdk-x5-stereo-yolo>
 - **Demo evidence:** screenshots and photos, https://github.com/omgajjar1976/rdk-x5-stereo-yolo/tree/main/docs/images
-- **Community post:** Stage 2: STAGE2_DISCORD_LINK · Stage 1: https://discord.com/channels/1300358874280230994/1574712116047515648/1575423831630286938
+- **Community post:** Stage 2: https://discord.com/channels/1300358874280230994/1574712116047515648/1575452279417344141 · Stage 1: https://discord.com/channels/1300358874280230994/1574712116047515648/1575423831630286938
 - **License:** Apache-2.0
 
 ## Summary
