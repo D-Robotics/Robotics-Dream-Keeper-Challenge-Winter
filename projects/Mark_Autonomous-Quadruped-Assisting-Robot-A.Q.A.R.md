@@ -119,10 +119,12 @@ flowchart LR
      - Nav "/cmd_vel" <- Linear Velocity node
 
 3. ESP32 Motor Control
-
+   
+    ```text
     Navigation command input ──┐
                                ├──► Firmware Predefined Commands ──► Servos Command
     Joystick manual input ─────┘
+    ```
 
 
 ## Links and Evidence
