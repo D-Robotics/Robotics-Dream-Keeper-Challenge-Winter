@@ -3,7 +3,7 @@
 - **Participant:** Om Gajjar
 - **Stage completed:** 1
 - **Repository:** <https://github.com/omgajjar1976/rdk-x5-stereo-yolo>
-- **Demo video:** https://github.com/omgajjar1976/rdk-x5-stereo-yolo/tree/main/docs/images
+- **Demo evidence:** screenshots and photos, https://github.com/omgajjar1976/rdk-x5-stereo-yolo/tree/main/docs/images
 - **Community post:** https://discord.com/channels/1300358874280230994/1574712116047515648/1575423831630286938
 - **License:** Apache-2.0
 
