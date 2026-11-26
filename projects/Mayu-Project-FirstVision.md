@@ -41,3 +41,17 @@ This is an unmodified sample demonstration, not an integrated moving robot. No a
 ---
 
 I agree that this showcase document may be used by the Robotics Dream Keeper Challenge organizers for program promotion, judging, and archives as described in the official README.
+
+
+## Stage 2 — Pochaken: a four-legged companion (design proposal)
+
+Pochaken is a proposed small quadruped companion that aims to detect and follow a person. The long-term vision includes conversation and helpful information. Stage 1 bottle recognition used an existing sample; person detection, ROS 2 integration, leg movement and following remain planned, not demonstrated.
+
+The design proposes USB camera input, person detection on the RDK X5, direction and stop decisions, and servo-driven legs. The leg mechanism, servo count, power, size and safe distance/obstacle sensing are not yet selected or validated. Testing starts with a secured leg and stopping checks.
+
+- [Project proposal and tentative measurable targets](https://github.com/naosurobot-crypto/rdk-challenge-2026/blob/main/docs/pochaken-proposal.md)
+- [System and ROS 2 architecture](https://github.com/naosurobot-crypto/rdk-challenge-2026/blob/main/docs/pochaken-architecture.md)
+- [Body and leg concept](https://github.com/naosurobot-crypto/rdk-challenge-2026/blob/main/docs/pochaken-body-concept.svg)
+- [Roadmap](https://github.com/naosurobot-crypto/rdk-challenge-2026/blob/main/ROADMAP.md)
+- [Parts, risks and engineering plan](https://github.com/naosurobot-crypto/rdk-challenge-2026/blob/main/docs/pochaken-engineering-plan.md)
+- [Stage 2 community post](https://discord.com/channels/1300358874280230994/1566089489791590702/1575118227002892298) (Discord server access required).
