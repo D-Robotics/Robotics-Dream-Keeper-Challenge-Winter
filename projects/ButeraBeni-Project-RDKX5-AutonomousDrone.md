@@ -1,52 +1,62 @@
-# RDK X5 Autonomous Drone
+# Lawn Scout — AI Lawn-Health Scanner on an RDK X5 Drone
 
-- **Participant:** ButeraBeni
-- **Stage completed:** 1
-- **Repository:** <https://github.com/buterabeni-web/rdk-x5-autonomous-drone>
-- **Demo video:** <https://github.com/user-attachments/assets/206f594d-c7a0-4acc-b9b2-ef0c5b23fccf>
-- **Community post:** <https://discord.com/channels/1300358874280230994/1568536611594174534/1569940832348536994>
-- **License:** MIT
+* **Participant:** ButeraBeni
+* **Stage completed:** 2
+* **Repository:** [https://github.com/buterabeni-web/rdk-x5-autonomous-drone](https://github.com/buterabeni-web/rdk-x5-autonomous-drone)
+* **Demo video:** [https://github.com/user-attachments/assets/206f594d-c7a0-4acc-b9b2-ef0c5b23fccf](https://github.com/user-attachments/assets/206f594d-c7a0-4acc-b9b2-ef0c5b23fccf) (Stage 1)
+* **Community post:** <https://discord.com/channels/1300358874280230994/1568536611594174534/1575892307897618542>
+* **License:** MIT
 
 ## Summary
 
-Drones that support agriculture, mapping, and emergency response often have to fly in hilly or cluttered terrain, where GPS and network connectivity can be unreliable. The goal of this project is an autonomous drone that uses onboard AI and vision on the D-Robotics RDK X5 to perceive its surroundings, navigate, and fly safely without depending on a ground station or cloud service.
+Lawns, school grounds, sports fields and small farm plots in Rwanda are checked by walking them, so dry grass and bare soil are noticed late and water is spread evenly instead of where it is needed. Many of these places have weak GPS and no reliable internet. Lawn Scout finds these problems with AI running entirely on the RDK X5, mounted on a drone.
 
-Stage 1 established the onboard computing foundation. I flashed RDKOS 3.5.0 Desktop onto a 64 GB microSD card using RDK Studio's in-board flashing over USB-C, without an SD card reader. The board booted, connected to the internet over Wi-Fi, and accepted SSH sessions from my laptop. For sensing, I connected a HBVCAM-W20217 USB camera, verified it with `v4l2-ctl`, and ran it as a ROS 2 node in TogetheROS.Bot (Humble), where it published the `/image` topic at a steady 30 Hz. For the first AI task, I ran YOLOv5 object detection on the BPU with live camera input; it detected a person, a bottle, and a cell phone in real time, with results viewed in a browser.
+In Stage 2 I moved the project to this agriculture use case, partly because of Rwanda's drone rules. I built and tested a classic HSV lawn-health method on the board (grid, outlined problem areas and a live browser view at 640 × 480), designed the hardware (a printed deck for the RDK X5 over the flight-controller stack and a window plate for the MTF-01 optical-flow and lidar sensor), and wrote the full system design.
 
-This camera-to-BPU inference pipeline is the base for the drone's perception system. In the next stages, I will design the full architecture, with the RDK X5 acting as a companion computer to a flight controller, and add vision-based navigation for flying in complex environments.
+The final demo is a handheld scan of a real lawn using the drone hardware with the propellers removed. A custom YOLO11n-seg model on the BPU segments stressed grass and bare soil live, while a second BPU model detects plastic bottles. The MTF-01 measures height so each problem is reported in square metres, and the frames are combined into a map of the lawn. Results will be measured on the board: speed, accuracy, area accuracy, and a comparison with the classic HSV method. Pilot-flown and then autonomous scanning come after the demo.
 
 ## Technical Highlights
 
-- **RDK board / image:** RDK X5 (8 GB RAM), RDKOS 3.5.0 Desktop, 64 GB microSD
-- **AI model and runtime:** YOLOv5 (pre-trained on COCO, 80 classes) via TogetheROS.Bot `dnn_node_example`
-- **Sensors and actuators:** HBVCAM-W20217 V22 USB camera (UVC, MJPG, up to 1280×720 @ 30 fps), used at 640×480
-- **ROS 2 design:** USB camera node → `/image` and `/hbmem_img` → BPU YOLO node → `/hobot_dnn_detection` → web visualization on port 8000
-- **BPU evidence and performance:** YOLOv5 inference on the BPU with live detections; camera topic `/image` measured at ~30 Hz (std dev ≈ 2 ms) with `ros2 topic hz`
+* **RDK board / image:** RDK X5 (8 GB), RDKOS 3.5.0 Desktop, TogetheROS.Bot (ROS 2 Humble)
+* **AI model and runtime:** custom YOLO11n-seg (INT8) on the BPU for `stressed\_patch` and `bare\_spot`; stock COCO YOLO on the BPU for bottles and people; HSV baseline on the CPU (implemented)
+* **Sensors and actuators:** USB camera 640 × 480 @ 30 fps; MicoAir MTF-01 ToF lidar + optical flow over UART; LED alert on GPIO 37
+* **ROS 2 design:** camera → codec → two BPU models → lawn analyzer (fused with MTF-01 height) → mapper and web UI; time-synchronised camera and lidar; per-topic QoS
+* **BPU evidence and performance:** Stage 1 YOLOv5 on the BPU with `/image` at \~30 Hz; Stage 3 targets ≥ 15 FPS segmentation, mask mAP50 ≥ 0.60, area within ± 20 %
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    A[USB camera] -->|/image, 30 Hz| B[TROS camera node]
-    B -->|/hbmem_img| C[YOLOv5 on BPU]
-    C -->|/hobot_dnn_detection| D[Web display :8000]
-    D --> E[Laptop browser over Wi-Fi]
+    C\[USB camera] --> D\[hobot\_codec]
+    D --> S\[\[BPU: lawn segmentation]]
+    D --> B\[\[BPU: COCO bottles / people]]
+    M\[MTF-01 height + flow] --> A
+    S --> A\[lawn\_analyzer<br/>% and m²]
+    B --> A
+    A --> MAP\[lawn\_mapper]
+    M --> MAP
+    A --> UI\[web UI :8080]
+    MAP --> UI
+    A --> L\[LED alert]
 ```
 
-The USB camera streams frames into ROS 2, the BPU runs YOLOv5 on each frame, and the detections are rendered over the video and viewed from a laptop on the same Wi-Fi network.
+Everything runs on the RDK X5; the phone or laptop only views the results. Full details, module table, compute allocation and ROS 2 graph are in the architecture document.
 
 ## Links and Evidence
 
-- Stage evidence: [Stage 1 section of the README](https://github.com/buterabeni-web/rdk-x5-autonomous-drone#stage-1--ignite) (flash, SSH, camera, and YOLO screenshots)
-- Benchmarks: camera topic rate ~30 Hz (`ros2 topic hz /image`)
-- Documentation: [Repository README](https://github.com/buterabeni-web/rdk-x5-autonomous-drone)
+* Proposal: [https://github.com/buterabeni-web/rdk-x5-autonomous-drone/blob/main/docs/PROPOSAL.md](https://github.com/buterabeni-web/rdk-x5-autonomous-drone/blob/main/docs/PROPOSAL.md)
+* Architecture: [https://github.com/buterabeni-web/rdk-x5-autonomous-drone/blob/main/docs/ARCHITECTURE.md](https://github.com/buterabeni-web/rdk-x5-autonomous-drone/blob/main/docs/ARCHITECTURE.md)
+* Engineering plan (BOM, risks, repo structure): [https://github.com/buterabeni-web/rdk-x5-autonomous-drone/blob/main/docs/ENGINEERING\_PLAN.md](https://github.com/buterabeni-web/rdk-x5-autonomous-drone/blob/main/docs/ENGINEERING_PLAN.md)
+* Roadmap: [https://github.com/buterabeni-web/rdk-x5-autonomous-drone/blob/main/ROADMAP.md](https://github.com/buterabeni-web/rdk-x5-autonomous-drone/blob/main/ROADMAP.md)
+* Stage 1 evidence: [https://github.com/buterabeni-web/rdk-x5-autonomous-drone#stage-1--ignite](https://github.com/buterabeni-web/rdk-x5-autonomous-drone#stage-1--ignite)
 
 ## Known Limitations and Safety
 
-- Stage 1 runs on a desk; no flight hardware is connected yet.
-- The pre-trained COCO model is a starting point; the final drone will need models and testing suited to aerial views.
-- Future flight tests will follow local drone regulations, use a flight controller with failsafes, and take place in open, safe areas.
+* The segmentation model is not trained yet; current results use the HSV method, which needs camera-specific thresholds.
+* The final demo is handheld; flight follows only with a licensed pilot and authorization under Rwanda RCAA rules.
+* Propellers are removed for all handheld and bench work, and the RDK is powered through a BEC checked with a multimeter.
 
----
+\---
 
 I agree that this showcase document may be used by the Robotics Dream Keeper Challenge organizers for program promotion, judging, and archives as described in the official README.
+
