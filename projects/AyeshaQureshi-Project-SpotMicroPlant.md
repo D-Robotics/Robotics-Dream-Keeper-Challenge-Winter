@@ -1,10 +1,10 @@
 # SpotMicro-Plant: Crop-Inspecting Quadruped
 
 - **Participant:** Ayesha Qureshi
-- **Stage completed:** 1
+- **Stage completed:** 2
 - **Repository:** https://github.com/ayeshaq27/SpotMicro-Plant
 - **Demo video:** https://github.com/ayeshaq27/SpotMicro-Plant/tree/main/stage1/evidence
-- **Community post:** [Stage 1 update on Discord](https://discord.com/channels/1300358874280230994/1562841654505898034/1569480691559694438)
+- **Community post:** [Stage 2 update on Discord](https://discord.com/channels/1300358874280230994/1562841654505898034/1575735652274929674) · [Stage 1 update on Discord](https://discord.com/channels/1300358874280230994/1562841654505898034/1569480691559694438)
 - **License:** MIT
 
 ## Summary
@@ -17,13 +17,15 @@ Most of my time went into debugging. The camera kept failing with "capture init 
 
 Next up: a model that recognizes crops instead of laptops, and teaching the dog to walk.
 
+Stage 2 turned that into a plan I can build. My [proposal](https://github.com/ayeshaq27/SpotMicro-Plant/blob/main/stage2/PROPOSAL.md) sets measurable Stage 3 targets, like at least 15 FPS on the BPU and under 250 ms from camera to diagnosis. It lays out a two-stage plant model (a YOLOv8n leaf detector trained on PlantDoc, then a 38-class PlantVillage disease classifier), a 13-node ROS 2 graph where the walking loop gets its own real-time CPU core, and a BOM of about CAD $1,123 that is already fully bought. My [roadmap](https://github.com/ayeshaq27/SpotMicro-Plant/blob/main/stage2/ROADMAP.md) takes it to the Dec 15 demo in three weeks, and the top five risks each have a trigger and a fallback.
+
 ## Technical Highlights
 
 - **RDK board / image:** RDK X5 (8GB), RDKOS 3.5.0, TogetheROS (ROS 2 Humble), `tros-humble-mipi-cam` 2.5.2
-- **AI model and runtime:** YOLOv8n (`yolov8_640x640_nv12.bin`, pretrained on COCO, 80 classes), run with `dnn_node_example` on the BPU
-- **Sensors and actuators:** RDK Stereo Camera GS130W (dual SC132GS global-shutter sensors, 1280×1088 per camera) over MIPI CSI-2. No actuators yet; DS3225 servos and a PCA9685 driver are planned for Stage 2.
-- **ROS 2 design:** `mipi_cam` publishes frames over shared memory (`/hbmem_img`). `dnn_node_example` subscribes, runs YOLOv8n on the BPU, and publishes detections on `hobot_dnn_detection`. `hobot_codec` encodes frames to JPEG (`/image`), and `websocket` combines the images and detections for the browser view.
-- **BPU evidence and performance:** On the web display during the YOLO run, the camera reported 60 fps, with an AI delay of roughly 2.2 s (`ai_delay_0: 2196`, likely milliseconds) and a board temperature of 66.5°C. The delay is far higher than the model's published inference speed, so reducing it (thermal management, pipeline settings) is a known follow-up.
+- **AI model and runtime:** YOLOv8n (`yolov8_640x640_nv12.bin`, pretrained on COCO, 80 classes), run with `dnn_node_example` on the BPU. *Stage 2 plan:* a YOLOv8n leaf detector (PlantDoc) feeding a 38-class MobileNetV2/ResNet18 disease classifier (PlantVillage, fine-tuned on PlantDoc), both INT8 on the BPU, plus StereoNet depth
+- **Sensors and actuators:** RDK Stereo Camera GS130W (dual SC132GS global-shutter sensors, 1280×1088 per camera) over MIPI CSI-2. No actuators yet. *Stage 2 plan:* 12× DS3225 servos on 2× PCA9685 (I2C), a GY-521 MPU6050 IMU and a 16×2 status LCD, powered by a 2S LiPo through three buck converters. All parts are bought and get built in Stage 3.
+- **ROS 2 design:** `mipi_cam` publishes frames over shared memory (`/hbmem_img`). `dnn_node_example` subscribes, runs YOLOv8n on the BPU, and publishes detections on `hobot_dnn_detection`. `hobot_codec` encodes frames to JPEG (`/image`), and `websocket` combines the images and detections for the browser view. *Stage 2 plan:* a 13-node graph (drivers → perception → decision → control → outputs) with custom `spotmicro_msgs` messages, an `InspectRow` action, and the gait controller and servo driver in one process pinned to its own CPU core.
+- **BPU evidence and performance:** On the web display during the YOLO run, the camera reported 60 fps, with an AI delay of roughly 2.2 s (`ai_delay_0: 2196`, likely milliseconds) and a board temperature of 66.5°C. The delay is far higher than the model's published inference speed, so reducing it (thermal management, pipeline settings) is a known follow-up. *Stage 2 plan:* compute budget of BPU 40–65 % and CPU 25–40 %, and measuring and fixing this delay is the first perception task in Stage 3.
 
 ## Architecture
 
@@ -39,8 +41,15 @@ flowchart LR
 
 The camera node shares frames with both the inference node and the JPEG encoder through shared memory. The websocket node overlays detections on the encoded frames and serves the result to a browser on the same network.
 
+The Stage 2 architecture (system flow, state machine, power and I2C, and the ROS 2 node graph) is in my [proposal](https://github.com/ayeshaq27/SpotMicro-Plant/blob/main/stage2/PROPOSAL.md#2-ai-system-architecture), with diagrams in [stage2/docs/images](https://github.com/ayeshaq27/SpotMicro-Plant/tree/main/stage2/docs/images).
+
 ## Links and Evidence
 
+- Stage 2 deliverables:
+  - Proposal: https://github.com/ayeshaq27/SpotMicro-Plant/blob/main/stage2/PROPOSAL.md
+  - Architecture: https://github.com/ayeshaq27/SpotMicro-Plant/blob/main/stage2/PROPOSAL.md#2-ai-system-architecture
+  - Engineering plan (BOM, timeline, risks, repo structure): https://github.com/ayeshaq27/SpotMicro-Plant/blob/main/stage2/PROPOSAL.md#3-engineering-plan
+  - Roadmap: https://github.com/ayeshaq27/SpotMicro-Plant/blob/main/stage2/ROADMAP.md
 - Stage evidence: [stage1/evidence](https://github.com/ayeshaq27/SpotMicro-Plant/tree/main/stage1/evidence) (flash + SSH, stereo camera feed, YOLO detection)
 - Benchmarks: see the BPU performance notes above
 - Documentation: [README](https://github.com/ayeshaq27/SpotMicro-Plant/blob/main/README.md) (setup, commands, dependencies, troubleshooting) and [stereo camera bring-up notes](https://github.com/ayeshaq27/SpotMicro-Plant/blob/main/docs/camera-setup.md)
